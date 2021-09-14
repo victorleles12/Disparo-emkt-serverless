@@ -1,0 +1,25 @@
+
+service: newslatter-send
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PartiQLInsert
+        - dynamodb:PartiQLUpdate
+        - dynamodb:PartiQLDelete
+        - dynamodb:PartiQLSelect
+        - lambda:InvokeFunction
+        - ses:SendEmail            
+        - ses:SendRawEmail         
+      Resource: '*'               
+
+functions:
+  index:
+    handler: index.handler
